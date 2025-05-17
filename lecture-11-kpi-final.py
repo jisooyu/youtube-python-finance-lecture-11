@@ -161,7 +161,7 @@ if __name__ =='__main__':
         logging.error("No valid data fetched for any tickers.")
         print("tickers 데이터가 비어 있어서 종료")
     else:
-        df_cls = df_ohlcv['Adj Close'].dropna(how="all")
+        df_cls = df_ohlcv['Close'].dropna(how="all")
         df_cls_ret = df_cls.pct_change(fill_method=None).fillna(0)
         print("tickers 데이터처리완료.")
 
@@ -173,7 +173,7 @@ if __name__ =='__main__':
         print("DJI 데이터가 비어 있어서 종료")
 
     else:
-        df_DJI = DJI_mon['Adj Close'].dropna(how='all')
+        df_DJI = DJI_mon['Close'].dropna(how='all')
         # calculate DJI percent change
         df_DJI_mon = df_DJI.pct_change(fill_method=None).fillna(0)
         # to standardize the format of the data before passing it to methods like plot_return

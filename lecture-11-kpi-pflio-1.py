@@ -124,12 +124,13 @@ if __name__ == '__main__':
     과거의 시작시기로 돌아가 당시 DJ에 포함된 주식을 선택하여 backtesting을 해야 함. 아니면 survivor ship bias위험 
     '''
     # Define tickers and date range
-    tickers = ["MSFT", "IBM", "HD", "GS", "XOM", "DIS", "DWDP", "KO", "CSCO", "CVX", "CAT", "BA", "AAPL", "AXP", "MMM"]
+    # tickers = ["MSFT", "IBM", "HD", "GS", "XOM", "DIS", "DWDP", "KO", "CSCO", "CVX", "CAT", "BA", "AAPL", "AXP", "MMM"]
+    tickers = ["MSFT", "IBM", "CSCO", "CVX", "CAT", "BA", "AAPL"]
     start = (dt.datetime.today() - dt.timedelta(days=1825)).strftime('%Y-%m-%d')
     end = dt.datetime.today().strftime('%Y-%m-%d')
     # Define tickers and date range
     df_ohlcv = fetch_data(tickers, start, end, interval = '1mo') 
-    df_cls = df_ohlcv['Adj Close'].dropna(how='all')
+    df_cls = df_ohlcv['Close'].dropna(how='all')
     df_cls_ret = df_cls.pct_change(fill_method=None).fillna(0)
 
     # calculating KPIs for portfolio strategy
@@ -140,7 +141,7 @@ if __name__ == '__main__':
 
     # DJI 수익률 계산
     DJI_mon = fetch_data(["^DJI"], start, end, interval='1mo')
-    df_DJI_cls = DJI_mon['Adj Close'].dropna(how='all')
+    df_DJI_cls = DJI_mon['Close'].dropna(how='all')
     df_DJI_mon = df_DJI_cls.pct_change(fill_method=None).fillna(0)
     df_DJI_ret = pd.DataFrame(np.array(df_DJI_mon),columns=['mon_ret'])
 
